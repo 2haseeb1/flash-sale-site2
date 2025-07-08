@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&DiacriticalGrave;FlashSaleCountdown&DiacriticalGrave; &#x995;&#x9ae;&#x9cd;&#x9aa;&#x9cb;&#x9a8;&#x9c7;&#x9a8;&#x9cd;&#x99f;&#x9c7;&#x9b0; &#x995;&#x9be;&#x9b0;&#x9cd;&#x9af;&#x9aa;&#x9cd;&#x9b0;&#x9ac;&#x9be;&#x9b9; &lpar;Flow&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <p>অবশ্যই। <code>FlashSaleCountdown.tsx</code> কম্পোনেন্টটির কার্যপ্রবাহ বা ফ্লো আমি Step-back Prompting পদ্ধতি ব্যবহার করে ধাপে ধাপে ব্যাখ্যা করছি। এটি একটি ক্লাসিক <strong>Client Component</strong>-এর চমৎকার উদাহরণ।</p>
+<hr>
+<h3 id="flashsalecountdown-কম্পোনেন্টের-কার্যপ্রবাহ-flow"><code>FlashSaleCountdown</code> কম্পোনেন্টের কার্যপ্রবাহ (Flow)</h3>
+<h4 id="ধাপ-০-কম্পোনেন্টের-জন্ম-এবং-ডেটা-গ্রহণ-birth-of-the-component--receiving-data">ধাপ ০: কম্পোনেন্টের জন্ম এবং ডেটা গ্রহণ (Birth of the Component &amp; Receiving Data)</h4>
+<ul>
+<li><strong>Step-back (এই কম্পোনেন্টটি কোথা থেকে আসে এবং এর কী প্রয়োজন?):</strong> এই কম্পোনেন্টটি নিজে থেকে চলতে পারে না। এর মূল উদ্দেশ্য হলো একটি নির্দিষ্ট সময় পর্যন্ত গণনা করা। তাই, এর অবশ্যই জানা দরকার কোন সময় পর্যন্ত গণনা করতে হবে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><code>DealPage</code> (একটি <strong>Server Component</strong>) ডেটাবেস থেকে ডিলের শেষ হওয়ার সময় (<code>saleEndsAt</code>) নিয়ে আসে।</li>
+<li><code>DealPage</code> যখন <code>FlashSaleCountdown</code> কম্পোনেন্টটিকে রেন্ডার করে, তখন এটি <code>saleEndsAt</code> তারিখটিকে একটি <code>prop</code> হিসেবে পাস করে দেয়: <code>&lt;FlashSaleCountdown saleEndsAt={product.saleEndsAt} /&gt;</code>।</li>
+<li>এইভাবে, আমাদের ক্লায়েন্ট কম্পোনেন্টটি সার্ভার থেকে প্রয়োজনীয় ডেটা পেয়ে যায়।</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-১-প্রাথমিক-অবস্থা-নির্ধারণ-initializing-state">ধাপ ১: প্রাথমিক অবস্থা নির্ধারণ (Initializing State)</h4>
+<ul>
+<li><strong>Step-back (ব্যবহারকারী যখন প্রথমবার পেজটি দেখে, তখন টাইমারটি কীভাবে শুরু হয়?):</strong> যদি আমরা <code>useState</code>-এর প্রাথমিক মান <code>0</code> বা খালি রাখি, তাহলে ব্যবহারকারী এক মুহূর্তের জন্য একটি ভুল বা খালি টাইমার দেখতে পারে, এবং তারপরে সঠিক সময়টি আসবে। এই ঝাঁকুনি (flicker) একটি খারাপ UX।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>useState(() =&gt; calculateTimeLeft(saleEndsAt))</code></strong>: আমরা <code>useState</code>-কে একটি ফাংশন পাস করছি। এই কৌশলটিকে <strong>lazy initialization</strong> বলা হয়।</li>
+<li><strong>কীভাবে কাজ করে:</strong> React কম্পোনেন্টটি প্রথমবার রেন্ডার হওয়ার সময় এই ফাংশনটি (<code>() =&gt; calculateTimeLeft(saleEndsAt)</code>) একবার মাত্র কল করে। <code>calculateTimeLeft</code> ফাংশনটি <code>prop</code> হিসেবে পাওয়া <code>saleEndsAt</code> তারিখ ব্যবহার করে সঙ্গে সঙ্গে অবশিষ্ট সময় গণনা করে এবং <code>timeLeft</code> state-এর প্রাথমিক মান হিসেবে সেট করে।</li>
+<li><strong>লাভ:</strong> এর ফলে, সার্ভার-সাইড রেন্ডারিং (SSR) এবং ক্লায়েন্ট-সাইড হাইড্রেশনের সময় কোনো ঝাঁকুনি হয় না। ব্যবহারকারী প্রথম থেকেই সঠিক সময় দেখতে পায়।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-২-লাইভ-টাইমার-চালু-করা-useeffect-hook">ধাপ ২: লাইভ টাইমার চালু করা (<code>useEffect</code> Hook)</h4>
+<ul>
+<li><strong>Step-back (State তো সেট হলো, কিন্তু টাইমারটি প্রতি সেকেন্ডে আপডেট হবে কীভাবে?):</strong> একটি কম্পোনেন্ট শুধুমাত্র তার <code>state</code> বা <code>props</code> পরিবর্তন হলেই পুনরায় রেন্ডার হয়। আমাদের এমন একটি ব্যবস্থা দরকার যা প্রতি সেকেন্ডে <code>timeLeft</code> state-টিকে আপডেট করতে থাকবে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>useEffect(() =&gt; { ... }, [saleEndsAt])</code></strong>: <code>useEffect</code> হুকটি এই কাজের জন্য বিশেষভাবে তৈরি। এটি কম্পোনেন্টটি ব্রাউজারে রেন্ডার হওয়ার পরে (যাকে বলে &quot;side effect&quot;) কোনো কোড চালানোর সুযোগ দেয়।</li>
+<li><strong><code>setInterval</code></strong>: <code>useEffect</code>-এর ভেতরে আমরা <code>setInterval</code> ব্যবহার করি। এটি JavaScript-এর একটি বিল্ট-in ফাংশন যা একটি নির্দিষ্ট সময় পরপর (এখানে প্রতি <code>1000</code> মিলিসেকেন্ড বা ১ সেকেন্ড) একটি ফাংশনকে বারবার কল করতে থাকে।</li>
+<li><strong><code>setTimeLeft(calculateTimeLeft(saleEndsAt))</code></strong>: প্রতি সেকেন্ডে, <code>setInterval</code> এই ফাংশনটি কল করে, যা <code>timeLeft</code> state-টিকে নতুন গণনাকৃত সময় দিয়ে আপডেট করে। <code>state</code> আপডেট হওয়ার সাথে সাথে React কম্পোনেন্টটিকে পুনরায় রেন্ডার করে, এবং আমরা UI-তে আপডেট হওয়া টাইমার দেখতে পাই।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৩-মেমরি-লিক-প্রতিরোধ-করা-preventing-memory-leaks">ধাপ ৩: মেমরি লিক প্রতিরোধ করা (Preventing Memory Leaks)</h4>
+<ul>
+<li><strong>Step-back (যদি ব্যবহারকারী অন্য পেজে চলে যায়, তাহলে কী হবে?):</strong> যদি ব্যবহারকারী পেজ পরিবর্তন করে, তাহলে <code>FlashSaleCountdown</code> কম্পোনেন্টটি &quot;unmount&quot; হয়ে যায় বা DOM থেকে সরিয়ে ফেলা হয়। কিন্তু <code>setInterval</code> টাইমারটি তখনও ব্যাকগ্রাউন্ডে চলতে থাকবে। এটি একটি <strong>মেমরি লিক</strong>, কারণ এটি অপ্রয়োজনীয়ভাবে রিসোর্স ব্যবহার করতে থাকে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong>Cleanup Function:</strong> <code>useEffect</code> একটি ফাংশন রিটার্ন করার সুযোগ দেয়, যাকে <strong>cleanup function</strong> বলা হয়। এই ফাংশনটি কম্পোনেন্ট unmount হওয়ার ঠিক আগে স্বয়ংক্রিয়ভাবে রান হয়।</li>
+<li><strong><code>return () =&gt; clearInterval(timer);</code></strong>: আমরা এই cleanup function-এ <code>clearInterval</code> কল করি। এটি <code>setInterval</code> টাইমারটিকে পুরোপুরি বন্ধ করে দেয়।</li>
+<li><strong>লাভ:</strong> এর ফলে, আমাদের অ্যাপ্লিকেশনটি পরিচ্ছন্ন থাকে এবং কোনো মেমরি লিক হয় না।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৪-ui-রেন্ডার-করা-rendering-the-ui">ধাপ ৪: UI রেন্ডার করা (Rendering the UI)</h4>
+<ul>
+<li><strong>Step-back (গণনা করা সময়টিকে কীভাবে সুন্দরভাবে দেখানো যায়?):</strong> আমাদের কাছে এখন <code>days</code>, <code>hours</code>, <code>minutes</code>, <code>seconds</code> আছে। এগুলোকে UI-তে দেখাতে হবে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><strong><code>padZero</code></strong>: এটি একটি ছোট helper function যা একক সংখ্যার আগে একটি <code>0</code> যোগ করে (যেমন: <code>9</code> কে <code>09</code> বানায়)। এটি টাইমারের ফরম্যাটিংকে সুন্দর করে।</li>
+<li><strong><code>isTimeUp</code></strong>: এটি একটি বুলিয়ান ভ্যারিয়েবল যা চেক করে দেখে যে সময় শেষ হয়ে গেছে কিনা।</li>
+<li><strong>Conditional Rendering</strong>: আমরা একটি টার্নারি অপারেটর (<code>isTimeUp ? ... : ...</code>) ব্যবহার করি।
+<ul>
+<li>যদি <code>isTimeUp</code> <code>true</code> হয়, তাহলে &quot;DEAL HAS ENDED!&quot; মেসেজটি দেখানো হয়।</li>
+<li>অন্যথায়, <code>days</code>, <code>hours</code>, <code>minutes</code>, এবং <code>seconds</code> সহ সম্পূর্ণ টাইমারটি দেখানো হয়।</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="সারসংক্ষেপ-ফ্লো-summary-flow">সারসংক্ষেপ ফ্লো (Summary Flow)</h3>
+<p><strong>Server (<code>DealPage</code>) → Passes <code>saleEndsAt</code> prop → <code>FlashSaleCountdown</code> (Client)</strong>
+<strong>↓</strong>
+<strong>Client Side → <code>useState</code> calculates initial time (no flicker)</strong>
+<strong>↓</strong>
+<strong>Component Mounts → <code>useEffect</code> starts <code>setInterval</code> timer</strong>
+<strong>↓</strong>
+<strong>Every Second → <code>setInterval</code> calls <code>setTimeLeft</code> → State updates → Component re-renders with new time</strong>
+<strong>↓</strong>
+<strong>User Navigates Away → Component unmounts → <code>useEffect</code>'s cleanup function runs → <code>clearInterval</code> stops the timer (no memory leak)</strong></p>
+<hr>
+<p>অবশ্যই। <code>PurchaseButton.tsx</code> কম্পোনেন্টটির কার্যপ্রবাহ বা ফ্লো আমি Step-back Prompting পদ্ধতি ব্যবহার করে ধাপে ধাপে ব্যাখ্যা করছি। এই কম্পונেন্টটি হলো Client এবং Server-এর মধ্যে যোগাযোগের একটি চমৎকার উদাহরণ।</p>
+<hr>
+<h3 id="purchasebutton-কম্পোনেন্টের-কার্যপ্রবাহ-flow"><code>PurchaseButton</code> কম্পোনেন্টের কার্যপ্রবাহ (Flow)</h3>
+<h4 id="ধাপ-০-কম্পোনেন্টের-জন্ম-এবং-ডেটা-গ্রহণ-birth-of-the-component--receiving-data-1">ধাপ ০: কম্পোনেন্টের জন্ম এবং ডেটা গ্রহণ (Birth of the Component &amp; Receiving Data)</h4>
+<ul>
+<li><strong>Step-back (এই কম্পোনেন্টটির কাজ কী এবং এর কী কী তথ্য প্রয়োজন?):</strong> এই কম্পোনেন্টের মূল কাজ হলো একটি &quot;Buy Now&quot; বাটন দেখানো, যা ব্যবহারকারী ক্লিক করতে পারবে। কিন্তু বাটনটি কখন সক্রিয় বা নিষ্ক্রিয় থাকবে, তা জানার জন্য এর কিছু তথ্য প্রয়োজন।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><code>DealPage</code> (একটি <strong>Server Component</strong>) ডেটাবেস থেকে পণ্যের <code>id</code>, <code>stockQuantity</code> এবং ডিলের সময়সীমা নিয়ে আসে।</li>
+<li>এই তথ্যের উপর ভিত্তি করে এটি <code>isSoldOut</code> এবং <code>isSaleActive</code> নামে দুটি বুলিয়ান ভ্যারিয়েবল তৈরি করে।</li>
+<li><code>DealPage</code> যখন <code>PurchaseButton</code> কম্পונেন্টটিকে রেন্ডার করে, তখন এটি এই তথ্যগুলো <code>props</code> হিসেবে পাস করে দেয়: <code>&lt;PurchaseButton productId={...} isSoldOut={...} isSaleActive={...} /&gt;</code>।</li>
+<li>এইভাবে, আমাদের ক্লায়েন্ট কম্পোনেন্টটি সার্ভার থেকে তার নিজের অবস্থা (state) নির্ধারণ করার জন্য প্রয়োজনীয় প্রাথমিক তথ্য পেয়ে যায়।</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-১-ব্যবহারকারীর-ইন্টারঅ্যাকশন---ক্লিক-করা-user-interaction---the-click">ধাপ ১: ব্যবহারকারীর ইন্টারঅ্যাকশন - ক্লিক করা (<code>User Interaction - The Click</code>)</h4>
+<ul>
+<li><strong>Step-back (ব্যবহারকারী যখন বাটনে ক্লিক করে, তখন কী হয়?):</strong> একটি সাধারণ HTML বাটনে <code>onClick</code> ইভেন্ট থাকে। React-এও তাই। আমাদের এমন একটি ব্যবস্থা দরকার যা এই ক্লিক ইভেন্টটিকে গ্রহণ করে এবং একটি সার্ভার অপারেশন শুরু করে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>&lt;button onClick={handlePurchase} ...&gt;</code></strong>: আমরা বাটনের <code>onClick</code> prop-এ <code>handlePurchase</code> নামক একটি ফাংশনকে সংযুক্ত করেছি। যখনই ব্যবহারকারী বাটনটিতে ক্লিক করবে, এই ফাংশনটি কল হবে।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-২-একটি-মসৃণ-ui-ট্রানজিশন-শুরু-করা-usetransition-hook">ধাপ ২: একটি মসৃণ UI ট্রানজিশন শুরু করা (<code>useTransition</code> Hook)</h4>
+<ul>
+<li><strong>Step-back (সমস্যাটা কী?):</strong> যদি আমরা <code>handlePurchase</code>-এর ভেতরে সরাসরি সার্ভার অ্যাকশন কল করি, তাহলে নেটওয়ার্ক রিকোয়েস্ট শেষ না হওয়া পর্যন্ত ব্যবহারকারীর ব্রাউজারের UI &quot;ফ্রিজ&quot; বা আটকে যেতে পারে। এটি একটি খারাপ UX। ব্যবহারকারীর বোঝা উচিত যে কিছু একটা ঘটছে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>const [isPending, startTransition] = useTransition();</code></strong>: আমরা React 18-এর <code>useTransition</code> হুক ব্যবহার করি।
+<ul>
+<li><strong><code>isPending</code></strong>: এটি একটি বুলিয়ান ভ্যালু (<code>true</code> বা <code>false</code>)। যখন ট্রানজিশনটি চলতে থাকে, তখন এর মান <code>true</code> থাকে।</li>
+<li><strong><code>startTransition</code></strong>: এটি একটি ফাংশন। আমরা আমাদের দীর্ঘ প্রক্রিয়াটিকে (সার্ভার অ্যাকশন কল) এই ফাংশন দিয়ে র‍্যাপ করি।</li>
+</ul>
+</li>
+<li><strong><code>startTransition(async () =&gt; { ... })</code></strong>: <code>handlePurchase</code>-এর ভেতরে আমরা <code>startTransition</code> কল করি। এটি React-কে বলে, &quot;আমি একটি দীর্ঘ প্রক্রিয়া শুরু করতে যাচ্ছি। এই সময়ে UI-কে ব্লক না করে, তুমি <code>isPending</code> ভ্যালুটিকে <code>true</code> করে দাও।&quot;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৩-সার্ভার-অ্যাকশন-কল-করা-এবং-সার্ভারের-সাথে-যোগাযোগ">ধাপ ৩: সার্ভার অ্যাকশন কল করা এবং সার্ভারের সাথে যোগাযোগ</h4>
+<ul>
+<li><strong>Step-back (ক্লায়েন্ট সাইড থেকে কীভাবে একটি নিরাপদ সার্ভার অপারেশন চালানো যায়?):</strong> ঐতিহ্যগতভাবে, এর জন্য একটি API রুট তৈরি করতে হতো। কিন্তু Next.js Server Actions এই প্রক্রিয়াটিকে অনেক সহজ করে দিয়েছে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>import { purchaseFlashSaleItem } from &quot;@/lib/actions&quot;;</code></strong>: আমরা <code>lib/actions.ts</code> ফাইল থেকে আমাদের সার্ভার অ্যাকশনটি ইম্পোর্ট করি।</li>
+<li><strong><code>const result = await purchaseFlashSaleItem(productId);</code></strong>: <code>startTransition</code>-এর ভেতরে আমরা সরাসরি এই <code>async</code> ফাংশনটিকে কল করি।
+<ul>
+<li><strong>পেছনে যা ঘটছে:</strong> Next.js স্বয়ংক্রিয়ভাবে একটি নিরাপদ নেটওয়ার্ক রিকোয়েস্ট তৈরি করে এবং ক্লায়েন্ট থেকে সার্ভারে <code>productId</code> পাঠিয়ে দেয়।</li>
+<li>সার্ভারে, <code>purchaseFlashSaleItem</code> ফাংশনটি রান হয়, ডেটাবেস <code>transaction</code> চালায় এবং একটি <code>result</code> অবজেক্ট (<code>{ success: true, ... }</code> বা <code>{ success: false, ... }</code>) রিটার্ন করে।</li>
+<li>এই <code>result</code> অবজেক্টটি নেটওয়ার্কের মাধ্যমে আবার ক্লায়েন্টের কাছে ফিরে আসে।</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৪-ফলাফল-হ্যান্ডেল-করা-এবং-ব্যবহারকারীকে-ফিডব্যাক-দেওয়া">ধাপ ৪: ফলাফল হ্যান্ডেল করা এবং ব্যবহারকারীকে ফিডব্যাক দেওয়া</h4>
+<ul>
+<li><strong>Step-back (সার্ভার থেকে উত্তর আসার পর ব্যবহারকারী কীভাবে বুঝবে কী হয়েছে?):</strong> ব্যবহারকারীকে অবশ্যই জানানো উচিত যে তার কেনাকাটা সফল হয়েছে নাকি ব্যর্থ হয়েছে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>if (result.success) { ... } else { ... }</code></strong>: আমরা সার্ভার থেকে পাওয়া <code>result</code> অবজেক্টটি চেক করি।
+<ul>
+<li><strong>সফল হলে:</strong> আমরা একটি <code>alert</code> দেখাই, যেখানে সফলতার বার্তা এবং অর্ডারের আইডি থাকে।</li>
+<li><strong>ব্যর্থ হলে:</strong> আমরা একটি <code>alert</code> দেখাই, যেখানে সার্ভার থেকে পাঠানো ব্যর্থতার কারণটি থাকে (যেমন: &quot;Sorry, this item is sold out!&quot;)।</li>
+</ul>
+</li>
+<li>ট্রানজিশন শেষ হলে, <code>isPending</code> স্বয়ংক্রিয়ভাবে <code>false</code> হয়ে যায়।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৫-বাটনের-অবস্থা-ডাইনামিকভাবে-পরিবর্তন-করা">ধাপ ৫: বাটনের অবস্থা ডাইনামিকভাবে পরিবর্তন করা</h4>
+<ul>
+<li><strong>Step-back (বাটনটি কখন নিষ্ক্রিয় থাকা উচিত?):</strong> ব্যবহারকারীকে একাধিকবার ক্লিক করা থেকে বিরত রাখতে হবে এবং যখন কেনা সম্ভব নয়, তখন বাটনটি ডিজেবল থাকা উচিত।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>const isDisabled = isPending || isSoldOut || !isSaleActive;</code></strong>: আমরা একটি ভ্যারিয়েবল তৈরি করি যা বাটনের <code>disabled</code> অবস্থা নির্ধারণ করে। বাটনটি নিষ্ক্রিয় থাকবে যদি:
+<ol>
+<li>একটি রিকোয়েস্ট পেন্ডিং থাকে (<code>isPending</code>)।</li>
+<li>পণ্যটি সোল্ড আউট হয়ে যায় (<code>isSoldOut</code>)।</li>
+<li>ডিলটি সক্রিয় না থাকে (<code>!isSaleActive</code>)।</li>
+</ol>
+</li>
+<li><strong><code>let buttonText = ...</code></strong>: একইভাবে, বাটনের টেক্সটটিও (<code>&quot;Buy Now!&quot;</code>, <code>&quot;Sold Out!&quot;</code>, <code>&quot;Processing...&quot;</code>) এই অবস্থার উপর ভিত্তি করে পরিবর্তন হয়।</li>
+</ul>
+</li>
+</ul>
+<h3 id="সারসংক্ষেপ-ফ্লো-summary-flow-1">সারসংক্ষেপ ফ্লো (Summary Flow)</h3>
+<p><strong>Server (<code>DealPage</code>) → Passes <code>props</code> (productId, isSoldOut, etc.) → <code>PurchaseButton</code> (Client)</strong>
+<strong>↓</strong>
+<strong>User Clicks Button → <code>onClick</code> triggers <code>handlePurchase</code></strong>
+<strong>↓</strong>
+<strong><code>startTransition</code> begins → <code>isPending</code> becomes <code>true</code> → UI updates to &quot;Processing...&quot; and is disabled</strong>
+<strong>↓</strong>
+<strong>Client calls <code>purchaseFlashSaleItem</code> (Server Action)</strong>
+<strong>↓</strong>
+<strong>Server receives request → Executes secure logic → Returns a <code>result</code> object</strong>
+<strong>↓</strong>
+<strong>Client receives <code>result</code> → <code>startTransition</code> ends → <code>isPending</code> becomes <code>false</code></strong>
+<strong>↓</strong>
+<strong>Client shows <code>alert</code> (success or failure) → Button is re-enabled (if not sold out)</strong></p>
+<hr>
+<p>অবশ্যই। <code>PurchaseSection.tsx</code> কম্পונেন্টটির কার্যপ্রবাহ বা ফ্লো আমি Step-back Prompting পদ্ধতি ব্যবহার করে ধাপে ধাপে ব্যাখ্যা করছি। এই কম্পונেন্টটি হলো অপটিমিস্টিক UI আপডেটের একটি চমৎকার বাস্তবায়ন।</p>
+<hr>
+<h3 id="purchasesection-কম্পোনেন্টের-কার্যপ্রবাহ-flow"><code>PurchaseSection</code> কম্পোনেন্টের কার্যপ্রবাহ (Flow)</h3>
+<h4 id="ধাপ-০-কম্পোনেন্টের-জন্ম-এবং-প্রাথমিক-অবস্থা-birth--initial-state">ধাপ ০: কম্পোনেন্টের জন্ম এবং প্রাথমিক অবস্থা (Birth &amp; Initial State)</h4>
+<ul>
+<li><strong>Step-back (এই কম্পোনেন্টটি কী এবং এর কী কী তথ্য প্রয়োজন?):</strong> এই কম্পোনেন্টের উদ্দেশ্য হলো স্টক ইন্ডিকেটর এবং ক্রয় বাটন একসাথে দেখানো এবং তাদের মধ্যেকার অবস্থা (state) শেয়ার করা। এর কাজ শুরু করার জন্য সার্ভার থেকে কিছু প্রাথমিক তথ্য প্রয়োজন।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><code>DealPage</code> (Server Component) ডেটাবেস থেকে <code>productId</code>, <code>initialStock</code> (প্রাথমিক স্টক সংখ্যা), এবং <code>isSaleActive</code> (ডিল সক্রিয় কিনা) নিয়ে আসে।</li>
+<li>এই তথ্যগুলো <code>props</code> হিসেবে <code>PurchaseSection</code> কম্পונেন্টকে পাস করা হয়।</li>
+<li>কম্পোনেন্টের ভেতরে <code>useState</code> এবং <code>useOptimistic</code> হুকগুলো এই <code>initialStock</code> ব্যবহার করে তাদের প্রাথমিক অবস্থা নির্ধারণ করে। <code>optimisticStock</code>-এর প্রাথমিক মান <code>initialStock</code>-এর সমান থাকে।</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-১-ব্যবহারকারীর-ইন্টারঅ্যাকশন---buy-now-ক্লিক-user-interaction---the-click">ধাপ ১: ব্যবহারকারীর ইন্টারঅ্যাকশন - 'Buy Now' ক্লিক (<code>User Interaction - The Click</code>)</h4>
+<ul>
+<li><strong>Step-back (ব্যবহারকারী যখন বাটনে ক্লিক করে, তখন কী হয়?):</strong> একটি সাধারণ UI-তে ক্লিক করলে সার্ভারের উত্তরের জন্য অপেক্ষা করতে হয়। কিন্তু আমরা চাই ব্যবহারকারী যেন মনে করে যে সবকিছু সঙ্গে সঙ্গে ঘটে গেছে।</li>
+<li><strong>Step-forward (সমাধান - অপটিমিস্টিক আপডেট):</strong>
+<ul>
+<li><strong><code>onClick={handlePurchase}</code></strong>: বাটনে ক্লিক করলে <code>handlePurchase</code> ফাংশনটি কল হয়।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-২-একটি-অপটিমিস্টিক-ট্রানজিশন-শুরু-করা-useoptimistic-ও-usetransition-একসাথে">ধাপ ২: একটি অপটিমিস্টিক ট্রানজিশন শুরু করা (<code>useOptimistic</code> ও <code>useTransition</code> একসাথে)</h4>
+<ul>
+<li><strong>Step-back (কীভাবে আমরা UI-কে সঙ্গে সঙ্গে আপডেট করব এবং একই সাথে সার্ভারকেও জানাব?):</strong> এখানেই <code>useOptimistic</code> এবং <code>useTransition</code>-এর জাদু।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ul>
+<li><strong><code>startTransition(async () =&gt; { ... })</code></strong>: <code>handlePurchase</code>-এর ভেতরে <code>startTransition</code> কল হয়। এটি React-কে বলে, &quot;আমি একটি দীর্ঘ প্রক্রিয়া শুরু করছি। এই সময়ে UI-কে ব্লক করবে না।&quot;</li>
+<li><strong><code>setOptimisticStock(1)</code></strong>: <code>startTransition</code>-এর <strong>ভেতরে</strong> প্রথম লাইনেই আমরা <code>setOptimisticStock(1)</code> কল করি।
+<ul>
+<li><strong>পেছনে যা ঘটছে:</strong> React সঙ্গে সঙ্গে <code>useOptimistic</code>-এর reducer ফাংশনটি (<code>(currentStock, amount) =&gt; currentStock - amount</code>) রান করে। এটি <code>optimisticStock</code>-এর মান <code>1</code> কমিয়ে দেয়।</li>
+<li><strong>তাৎক্ষণিক ফলাফল:</strong> <code>optimisticStock</code> state পরিবর্তন হওয়ার সাথে সাথে <code>StockIndicatorUI</code> কম্পונেন্টটি পুনরায় রেন্ডার হয় এবং ব্যবহারকারী সঙ্গে সঙ্গে দেখে যে স্টক সংখ্যা <code>1</code> কমে গেছে। UI আপডেট হয়ে গেছে, যদিও সার্ভার এখনও কিছুই জানে না।</li>
+</ul>
+</li>
+<li><strong><code>setHasSubmitted(true)</code></strong>: আমরা একটি <code>state</code> পরিবর্তন করে চিহ্নিত করে রাখি যে ব্যবহারকারী বাটনটি ক্লিক করেছে, যাতে বাটনটি ডিজেবল হয়ে যায় এবং টেক্সট পরিবর্তন করা যায়।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৩-সার্ভারে-আসল-কাজটি-পাঠানো-sending-the-real-work-to-the-server">ধাপ ৩: সার্ভারে আসল কাজটি পাঠানো (Sending the Real Work to the Server)</h4>
+<ul>
+<li><strong>Step-back (UI তো আপডেট হলো, কিন্তু আসল কেনাকাটা কীভাবে হবে?):</strong> অপটিমিস্টিক আপডেটটি শুধুমাত্র একটি &quot;ধারণা&quot;। আসল কাজটি সার্ভারে নিরাপদে সম্পন্ন করতে হবে।</li>
+<li><strong>Step-forward (সমাধান - সার্ভার অ্যাকশন):</strong>
+<ul>
+<li><strong><code>const result = await purchaseFlashSaleItem(productId);</code></strong>: অপটিমিস্টিক আপডেটের পরেই, <code>startTransition</code>-এর ভেতরে <code>purchaseFlashSaleItem</code> নামক <strong>Server Action</strong>-টি কল করা হয়।</li>
+<li>Next.js ক্লায়েন্ট থেকে সার্ভারে একটি নিরাপদ রিকোয়েস্ট পাঠায়। সার্ভারে, <code>purchaseFlashSaleItem</code> ফাংশনটি ডেটাবেস <code>transaction</code> চালায়, আসল স্টক সংখ্যা কমায় এবং অর্ডার তৈরি করে।</li>
+<li>এই পুরো সময়টা <code>isPending</code> ভ্যালু <code>true</code> থাকে।</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৪-সার্ভারের-উত্তর-অনুযায়ী-ui-সিঙ্ক্রোনাইজ-করা-syncing-ui-with-server-response">ধাপ ৪: সার্ভারের উত্তর অনুযায়ী UI সিঙ্ক্রোনাইজ করা (Syncing UI with Server Response)</h4>
+<ul>
+<li><strong>Step-back (যদি সার্ভারে কোনো সমস্যা হয়? যেমন, স্টক শেষ হয়ে গেলে?):</strong> আমাদের অপটিমিস্টিক UI আপডেটটি ভুল হতে পারে। তখন UI-কে অবশ্যই আসল অবস্থার সাথে সিঙ্ক করতে হবে।</li>
+<li><strong>Step-forward (সমাধান - React-এর স্বয়ংক্রিয় Rollback):</strong>
+<ul>
+<li><strong><code>if (!result.success) { ... }</code></strong>: সার্ভার অ্যাকশনটি যদি ব্যর্থ হয় (যেমন, <code>success: false</code> রিটার্ন করে)।
+<ul>
+<li><strong>React-এর জাদু:</strong> <code>startTransition</code>-এর ভেতরের <code>async</code> ফাংশনটি একটি এরর দিয়ে শেষ হলে বা সফল না হলে, React <strong>স্বয়ংক্রিয়ভাবে</strong> <code>useOptimistic</code> state-টিকে তার <strong>আগের আসল মানে</strong> ফিরিয়ে আনে (rollback)। আপনাকে ম্যানুয়ালি কিছু করতে হবে না। <code>optimisticStock</code>-এর মান আবার <code>initialStock</code>-এর সমান হয়ে যাবে।</li>
+<li>আমরা শুধু ব্যবহারকারীকে একটি <code>alert</code> দেখাই এবং <code>setHasSubmitted(false)</code> করে দিই, যাতে সে আবার চেষ্টা করতে পারে।</li>
+</ul>
+</li>
+<li><strong><code>else { ... }</code> (সফল হলে):</strong>
+<ul>
+<li>যদি সার্ভার অ্যাকশন সফল হয়, তাহলে আমাদের কিছুই করার নেই। অপটিমিস্টিক UI আপডেটটি ইতিমধ্যেই সঠিক ছিল।</li>
+<li>সার্ভার অ্যাকশনের <code>revalidatePath</code> কল করার কারণে, Next.js পেজটিকে রিফ্রেশ করবে এবং <code>initialStock</code> prop-টি নতুন এবং সঠিক মান পাবে। এর ফলে <code>optimisticStock</code> state-টি নতুন আসল মানের সাথে স্বয়ংক্রিয়ভাবে সিঙ্ক হয়ে যাবে।</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="সারসংক্ষেপ-ফ্লো-summary-flow-2">সারসংক্ষেপ ফ্লো (Summary Flow)</h3>
+<p><strong>User Clicks 'Buy Now'</strong>
+<strong>↓</strong>
+<strong><code>startTransition</code> begins</strong>
+<strong>↓</strong>
+<strong><code>setOptimisticStock(1)</code> is called → <code>optimisticStock</code> state changes INSTANTLY</strong>
+<strong>↓</strong>
+<strong>UI Re-renders INSTANTLY with new, lower stock count (The &quot;Optimistic&quot; part)</strong>
+<strong>↓</strong>
+<strong><code>purchaseFlashSaleItem</code> (Server Action) is called and runs in the background (<code>isPending</code> is <code>true</code>)</strong>
+<strong>↓</strong>
+<strong>Server processes the purchase (database transaction)</strong>
+<strong>↓</strong>
+<strong>Server returns a result (Success or Failure)</strong>
+<strong>↓</strong>
+<strong>(Path A: Success) → <code>isPending</code> becomes <code>false</code>. Optimistic state was correct. Nothing changes visually.</strong>
+<strong>↓</strong>
+<strong>(Path B: Failure) → <code>isPending</code> becomes <code>false</code>. React AUTOMATICALLY reverts <code>optimisticStock</code> to its original value. User sees an alert.</strong></p>
+<p>এই ফ্লোটি একটি অত্যন্ত দ্রুত এবং ব্যবহারকারী-বান্ধব অভিজ্ঞতা তৈরি করে, যা আধুনিক ওয়েব অ্যাপ্লিকেশনের একটি মূল বৈশিষ্ট্য।</p>
+<hr>
+<p>অবশ্যই। <code>StockIndicator.tsx</code> কম্পোনেন্টটির কার্যপ্রবাহ বা ফ্লো আমি Step-back Prompting পদ্ধতি ব্যবহার করে ধাপে ধাপে ব্যাখ্যা করছি। এটি একটি আধুনিক <strong><code>async</code> Server Component</strong>-এর একটি নিখুঁত উদাহরণ, যা <strong>Streaming</strong> এবং <strong>Partial Prerendering (PPR)</strong>-এর জন্য ডিজাইন করা হয়েছে।</p>
+<hr>
+<h3 id="stockindicator-কম্পোনেন্টের-কার্যপ্রবাহ-flow"><code>StockIndicator</code> কম্পোনেন্টের কার্যপ্রবাহ (Flow)</h3>
+<h4 id="ধাপ-০-কম্পোনেন্টের-জন্ম-এবং-ডেটা-গ্রহণ-birth-of-the-component--receiving-data-2">ধাপ ০: কম্পোনেন্টের জন্ম এবং ডেটা গ্রহণ (Birth of the Component &amp; Receiving Data)</h4>
+<ul>
+<li><strong>Step-back (এই কম্পোনেন্টটির উদ্দেশ্য কী এবং এর কী প্রয়োজন?):</strong> এই কম্পোনেন্টের একমাত্র কাজ হলো একটি নির্দিষ্ট পণ্যের লাইভ স্টক সংখ্যা দেখানো। এই কাজটি করার জন্য, এর অবশ্যই জানা দরকার কোন পণ্যের স্টক দেখাতে হবে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><code>DealPage</code> (একটি Server Component) URL থেকে <code>dealId</code> পায়।</li>
+<li><code>DealPage</code> যখন <code>StockIndicator</code> কম্পোনেন্টটিকে রেন্ডার করে, তখন এটি <code>productId</code> prop-টি পাস করে দেয়: <code>&lt;StockIndicator productId={product.id} /&gt;</code>।</li>
+<li>এই কম্পোনেন্টটি এখন জানে যে তাকে কোন <code>productId</code>-এর জন্য ডেটাবেস ক্যোয়ারী চালাতে হবে।</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-১-সার্ভারে-অ্যাসিঙ্ক্রোনাস-অপারেশন-async-এবং-await">ধাপ ১: সার্ভারে অ্যাসিঙ্ক্রোনাস অপারেশন (<code>async</code> এবং <code>await</code>)</h4>
+<ul>
+<li><strong>Step-back (এই কম্পোনেন্টটি কীভাবে লাইভ ডেটা নিয়ে আসে?):</strong> যেহেতু এটি একটি <strong>Server Component</strong>, এটি সরাসরি সার্ভার-সাইড রিসোর্স (যেমন ডেটাবেস) অ্যাক্সেস করতে পারে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><strong><code>export default async function StockIndicator...</code></strong>: কম্পোনেন্টটিকে <code>async</code> হিসেবে সংজ্ঞায়িত করা হয়েছে। এটি আমাদেরকে এর ভেতরে <code>await</code> ব্যবহার করার ক্ষমতা দেয়।</li>
+<li><strong><code>await new Promise(...)</code></strong>: এটি একটি <strong>কৃত্রিম বিলম্ব</strong>। এর উদ্দেশ্য হলো ডেটাবেস ক্যোয়ারীর মতো একটি সময়সাপেক্ষ কাজকে সিমুলেট করা, যাতে আমরা <code>Suspense</code>-এর স্ট্রিমিং প্রভাবটি স্পষ্টভাবে দেখতে পারি। বাস্তব অ্যাপ্লিকেশনে এটি প্রয়োজন নাও হতে পারে।</li>
+<li><strong><code>const product = await prisma.product.findUnique(...)</code></strong>: এটিই মূল কাজ। কম্পোনেন্টটি সার্ভারে <code>prisma</code> ব্যবহার করে সরাসরি ডেটাবেসে একটি ক্যোয়ারী চালায়।
+<ul>
+<li><code>where: { id: productId }</code>: এটি নির্দিষ্ট পণ্যটিকে খুঁজে বের করে।</li>
+<li><code>select: { stockQuantity: true }</code>: এটি ক্যোয়ারীকে অপ্টিমাইজ করে, কারণ এটি ডেটাবেসকে শুধুমাত্র <code>stockQuantity</code> ফিল্ডটি পাঠাতে বলে, পুরো প্রোডাক্ট অবজেক্ট নয়।</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-২-স্ট্রিমিং-এবং-suspense-এর-সাথে-ইন্টিগ্রেশন">ধাপ ২: স্ট্রিমিং এবং <code>&lt;Suspense&gt;</code>-এর সাথে ইন্টিগ্রেশন</h4>
+<ul>
+<li><strong>Step-back (সমস্যাটা কী?):</strong> <code>prisma.product.findUnique</code> ক্যোয়ারীটি শেষ হতে কয়েকশ মিলিসেকেন্ড সময় লাগতে পারে। আমরা যদি পুরো পেজটিকে এই ক্যোয়ারী শেষ হওয়ার জন্য অপেক্ষা করাই, তাহলে ব্যবহারকারীর কাছে পেজ লোড হতে দেরি হবে।</li>
+<li><strong>Step-forward (সমাধান - Partial Prerendering):</strong>
+<ol>
+<li><code>DealPage</code>-এ, <code>&lt;StockIndicator /&gt;</code> কম্পোনেন্টটি একটি <code>&lt;Suspense&gt;</code> বাউন্ডারির ভেতরে র‍্যাপ করা থাকে:<pre><code class="language-jsx">&lt;<span class="hljs-title class_">Suspense</span> fallback={<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">LoadingSkeleton</span> /&gt;</span></span>}&gt;
+  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">StockIndicator</span> <span class="hljs-attr">productId</span>=<span class="hljs-string">{...}</span> /&gt;</span></span>
+&lt;/<span class="hljs-title class_">Suspense</span>&gt;
+</code></pre>
+</li>
+<li><strong>পেছনে যা ঘটছে:</strong> Next.js যখন <code>DealPage</code> রেন্ডার করা শুরু করে এবং <code>StockIndicator</code>-এর ভেতরের <code>await</code> লাইনে পৌঁছায়, তখন সে থেমে যায়।</li>
+<li>অপেক্ষা না করে, Next.js পেজের বাকি অংশের (Static Shell) HTML এবং <code>Suspense</code>-এর <code>fallback</code> (আমাদের <code>LoadingSkeleton</code>) ক্লায়েন্টের কাছে পাঠিয়ে দেয়। ব্যবহারকারী সঙ্গে সঙ্গে পেজের কাঠামো এবং একটি লোডিং অ্যানিমেশন দেখতে পায়।</li>
+<li>যখন সার্ভারে <code>await</code>-এর কাজ শেষ হয় এবং <code>StockIndicator</code> তার ডেটা পেয়ে রেন্ডার সম্পন্ন করে, তখন Next.js শুধুমাত্র <code>StockIndicator</code>-এর রেন্ডার করা HTML টুকরোটিকে একটি পৃথক &quot;চাঙ্ক&quot; হিসেবে ক্লায়েন্টের কাছে <strong>stream</strong> করে।</li>
+<li>ব্রাউজার তখন <code>LoadingSkeleton</code>-কে সরিয়ে নতুন আসা HTML দিয়ে প্রতিস্থাপন করে।</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="ধাপ-৩-ডেটা-প্রসেসিং-এবং-ui-রেন্ডারিং-data-processing--ui-rendering">ধাপ ৩: ডেটা প্রসেসিং এবং UI রেন্ডারিং (Data Processing &amp; UI Rendering)</h4>
+<ul>
+<li><strong>Step-back (ডেটা পাওয়ার পর সেটিকে কীভাবে ব্যবহারযোগ্য করা হয়?):</strong> আমরা ডেটাবেস থেকে <code>stockQuantity</code> পেয়েছি। এখন এটিকে একটি ভিজ্যুয়াল প্রোগ্রেস বার এবং টেক্সটে রূপান্তর করতে হবে।</li>
+<li><strong>Step-forward (সমাধান):</strong>
+<ol>
+<li><strong><code>const stock = product?.stockQuantity ?? 0;</code></strong>: এটি একটি নিরাপদ উপায় ডেটা অ্যাক্সেস করার। যদি কোনো কারণে <code>product</code> খুঁজে না পাওয়া যায় (যা প্রায় অসম্ভব, কিন্তু একটি ভালো অভ্যাস), তাহলে <code>stock</code> <code>0</code> হবে।</li>
+<li><strong><code>const percentage = ...</code></strong>: আমরা একটি <code>initialStock</code> (এখানে হার্ডকোডেড <code>50</code>) ব্যবহার করে স্টকের শতাংশ গণনা করি। এই শতাংশটি প্রোগ্রেস বারের <code>width</code> নির্ধারণ করতে ব্যবহৃত হয়।</li>
+<li><strong>Conditional Rendering</strong>: আমরা একটি টার্নারি অপারেটর (<code>stock &gt; 0 ? ... : ...</code>) ব্যবহার করে একটি ডাইনামিক মেসেজ তৈরি করি। যদি স্টক থাকে, তাহলে &quot;items left&quot; মেসেজ দেখানো হয়; না থাকলে, &quot;Completely Sold Out!&quot; দেখানো হয়।</li>
+<li>সবশেষে, কম্পোনেন্টটি চূড়ান্ত JSX (HTML) রিটার্ন করে, যা সার্ভারে রেন্ডার হয় এবং ক্লায়েন্টের কাছে স্ট্রিম করা হয়।</li>
+</ol>
+</li>
+</ul>
+<h3 id="সারসংক্ষেপ-ফ্লো-summary-flow-3">সারসংক্ষেপ ফ্লো (Summary Flow)</h3>
+<p><strong><code>DealPage</code> (Server) starts rendering → Encounters <code>&lt;Suspense&gt;</code></strong>
+<strong>↓</strong>
+<strong>Sends Static Shell + <code>fallback</code> UI to Client IMMEDIATELY</strong>
+<strong>↓</strong>
+<strong>(In Parallel on Server) → <code>&lt;StockIndicator /&gt;</code> starts executing → <code>await</code>s for database query</strong>
+<strong>↓</strong>
+<strong>Database query finishes → <code>StockIndicator</code> gets data, calculates percentage, renders its HTML</strong>
+<strong>↓</strong>
+<strong>Server <code>streams</code> the finished HTML of <code>StockIndicator</code> to the Client</strong>
+<strong>↓</strong>
+<strong>Client's browser receives the new HTML chunk → Replaces the <code>fallback</code> UI with the <code>StockIndicator</code> UI</strong></p>
+<p>এই ফ্লোটি একটি অসাধারণ পারফরম্যান্স প্যাটার্ন, যা ব্যবহারকারীকে দ্রুত একটি প্রাথমিক UI দেখায় এবং ডাইনামিক ডেটা আসার সাথে সাথে পেজটিকে আপডেট করে।</p>
+
+            
+            
+        </body>
+        </html>
